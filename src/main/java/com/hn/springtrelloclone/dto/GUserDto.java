@@ -12,4 +12,8 @@ public class GUserDto {
     private String username;
     private String email;
     private String avatarUrl;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String accountInfo;
 }

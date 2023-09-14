@@ -62,6 +62,10 @@ public class UserController {
         responseUser.setUsername(user.getUsername());
         responseUser.setEmail(user.getEmail());
         responseUser.setAvatarUrl(user.getAvatarUrl());
+        responseUser.setFirstName(user.getFirstName());
+        responseUser.setLastName(user.getLastName());
+        responseUser.setAddress(user.getAddress());
+        responseUser.setAccountInfo(user.getAccountInfo());
         return ResponseEntity.status(HttpStatus.OK).body(responseUser);
     }
 

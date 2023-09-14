@@ -41,6 +41,14 @@ public class GUser {
 
     private String avatarUrl;
 
+    private String firstName;
+
+    private String lastName;
+
+    private String address;
+
+    private String accountInfo;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_board",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "userId"),
