@@ -86,6 +86,10 @@ public class UserController {
         System.out.println(user.getAvatarUrl());
         GUser currentUser = authService.getCurrentUser();
         currentUser.setAvatarUrl(user.getAvatarUrl());
+        currentUser.setFirstName(user.getFirstName());
+        currentUser.setLastName(user.getLastName());
+        currentUser.setAddress(user.getAddress());
+        currentUser.setAccountInfo(user.getAccountInfo());
         GUser updatedUser = gUserService.saveUser(currentUser);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
