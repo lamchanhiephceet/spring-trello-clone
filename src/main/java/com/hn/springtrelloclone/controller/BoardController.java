@@ -144,7 +144,7 @@ public class BoardController {
     @GetMapping("/excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String currentDateTime = dateFormatter.format(new Date());
 
         String headerKey = "Content-Disposition";

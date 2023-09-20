@@ -36,7 +36,7 @@ public class ExcelExporterService {
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setBold(true);
-        font.setFontHeight(16);
+        font.setFontHeight(14);
         style.setFont(font);
 
         createCell(row, 0, "Board Name", style);
@@ -68,11 +68,10 @@ public class ExcelExporterService {
 
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
-        font.setFontHeight(13);
+        font.setFontHeight(12);
         style.setFont(font);
 
         for (ExcelExportDTO data : listAll()) {
-            System.out.println(data);
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
             createCell(row, columnCount++, data.getBoardName(), style);
