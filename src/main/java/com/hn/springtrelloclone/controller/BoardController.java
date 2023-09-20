@@ -1,5 +1,6 @@
 package com.hn.springtrelloclone.controller;
 
+import com.hn.springtrelloclone.dao.ExcelExportDAO;
 import com.hn.springtrelloclone.dto.GUserDto;
 import com.hn.springtrelloclone.model.GBoard;
 import com.hn.springtrelloclone.model.GLabel;
@@ -11,7 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,6 +39,12 @@ public class BoardController {
 
     @Autowired
     private GLabelService gLabelService;
+
+    @Autowired
+    private ExcelExporterService excelExporterService;
+
+    @Autowired
+    private ExcelExportDAO excelExportDAO;
 
     @GetMapping("/{id}")
     public ResponseEntity<List<GList>> findAllListByBoardId(@PathVariable Long id) {
@@ -127,5 +139,18 @@ public class BoardController {
         if (response == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename = boards_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+        excelExporterService.export(response);
+
     }
 }

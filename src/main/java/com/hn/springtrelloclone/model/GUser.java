@@ -68,4 +68,9 @@ public class GUser {
             inverseJoinColumns = @JoinColumn(name = "notification_id", referencedColumnName = "notificationId"))
     @JsonIgnore
     private List<Notification> notifications;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private GBoard board;
+
 }
