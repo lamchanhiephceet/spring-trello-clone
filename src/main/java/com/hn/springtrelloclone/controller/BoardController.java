@@ -1,6 +1,7 @@
 package com.hn.springtrelloclone.controller;
 
 import com.hn.springtrelloclone.dao.ExcelExportDAO;
+import com.hn.springtrelloclone.dto.ExcelExportDTO;
 import com.hn.springtrelloclone.dto.GUserDto;
 import com.hn.springtrelloclone.model.GBoard;
 import com.hn.springtrelloclone.model.GLabel;
@@ -153,4 +154,16 @@ public class BoardController {
         excelExporterService.export(response);
 
     }
+
+    @GetMapping("/excel-info")
+    public ResponseEntity<List<ExcelExportDTO>> getData(){
+        GUser currentUser = authService.getCurrentUser();
+        if (currentUser.isEnabled()) {
+            List<ExcelExportDTO> board = excelExporterService.listAll();
+            return ResponseEntity.status(HttpStatus.OK).body(board);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+    }
+
 }
