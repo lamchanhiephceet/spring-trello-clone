@@ -69,8 +69,4 @@ public class GUser {
     @JsonIgnore
     private List<Notification> notifications;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    private GBoard board;
-
 }

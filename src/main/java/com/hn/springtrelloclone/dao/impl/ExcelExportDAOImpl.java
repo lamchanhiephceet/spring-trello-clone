@@ -19,7 +19,7 @@ public class ExcelExportDAOImpl implements ExcelExportDAO {
     @Override
     public List<ExcelExportDTO> getWorkDetail() {
         String querySQL = "select distinct \n" +
-                "b.board_name,l.list_name,c.card_name,u.first_name,u.last_name,u.email,u.account_info \n" +
+                "b.board_name,l.list_name,c.card_name,u.first_name,u.last_name,u.username,u.email,u.account_info \n" +
                 "from gboard b \n" +
                 "join glist l on l.board_board_id = b.board_id \n" +
                 "join gcard c on c.list_list_id = l.list_id \n" +
@@ -35,7 +35,9 @@ public class ExcelExportDAOImpl implements ExcelExportDAO {
                         (String) row[3],
                         (String) row[4],
                         (String) row[5],
-                        (String) row[6]));
+                        (String) row[6],
+                        (String) row[7]
+                ));
             }
             return result;
         } catch (Exception e) {

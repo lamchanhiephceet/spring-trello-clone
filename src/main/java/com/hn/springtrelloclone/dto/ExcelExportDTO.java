@@ -20,6 +20,7 @@ public class ExcelExportDTO {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    private String username;
     @Column(name="email")
     private String email;
     @Column(name="account_info")
