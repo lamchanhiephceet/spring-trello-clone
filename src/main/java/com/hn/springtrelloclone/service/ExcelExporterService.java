@@ -24,8 +24,8 @@ public class ExcelExporterService {
 
     private XSSFSheet sheet;
 
-    public List<ExcelExportDTO> listAll() {
-        return excelExportDAO.getWorkDetail();
+    public List<ExcelExportDTO> listAll(Long id) {
+        return excelExportDAO.getWorkDetail(id);
     }
 
 
@@ -39,13 +39,13 @@ public class ExcelExporterService {
         font.setFontHeight(14);
         style.setFont(font);
 
-        createCell(row, 0, "Board Name", style);
-        createCell(row, 1, "List Name", style);
-        createCell(row, 2, "Card Name", style);
-        createCell(row, 3, "First Name", style);
-        createCell(row, 4, "Last Name", style);
-        createCell(row, 5, "E-mail", style);
-        createCell(row, 6, "About Account", style);
+        createCell(row, 0, "Project Name", style);
+        createCell(row, 1, "Status", style);
+        createCell(row, 2, "Task Name", style);
+        createCell(row, 3, "User Name", style);
+//        createCell(row, 4, "Last Name", style);
+        createCell(row, 4, "E-mail", style);
+        createCell(row, 5, "About Account", style);
 
     }
 
@@ -63,7 +63,7 @@ public class ExcelExporterService {
         cell.setCellStyle(style);
     }
 
-    private void writeDataLines(XSSFWorkbook workbook) {
+    private void writeDataLines(XSSFWorkbook workbook, Long userId) {
         int rowCount = 1;
 
         CellStyle style = workbook.createCellStyle();
@@ -71,23 +71,23 @@ public class ExcelExporterService {
         font.setFontHeight(12);
         style.setFont(font);
 
-        for (ExcelExportDTO data : listAll()) {
+        for (ExcelExportDTO data : listAll(userId)) {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
             createCell(row, columnCount++, data.getBoardName(), style);
             createCell(row, columnCount++, data.getListName(), style);
             createCell(row, columnCount++, data.getCardName(), style);
-            createCell(row, columnCount++, data.getFirstName(), style);
-            createCell(row, columnCount++, data.getLastName(), style);
+//            createCell(row, columnCount++, data.getFirstName(), style);
+            createCell(row, columnCount++, data.getUsername(), style);
             createCell(row, columnCount++, data.getEmail(), style);
             createCell(row, columnCount++, data.getAccountInfo(), style);
         }
     }
 
-    public void export(HttpServletResponse response) throws IOException {
+    public void export(HttpServletResponse response,Long userId) throws IOException {
         XSSFWorkbook workbook = new XSSFWorkbook();
         writeHeaderLine( workbook);
-        writeDataLines( workbook);
+        writeDataLines( workbook,userId);
 
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);

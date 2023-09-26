@@ -3,6 +3,7 @@ package com.hn.springtrelloclone.controller;
 import com.hn.springtrelloclone.dao.ExcelExportDAO;
 import com.hn.springtrelloclone.dto.ExcelExportDTO;
 import com.hn.springtrelloclone.dto.GUserDto;
+import com.hn.springtrelloclone.exceptions.SpringTrelloException;
 import com.hn.springtrelloclone.model.GBoard;
 import com.hn.springtrelloclone.model.GLabel;
 import com.hn.springtrelloclone.model.GList;
@@ -144,22 +145,26 @@ public class BoardController {
 
     @GetMapping("/excel")
     public void exportToExcel(HttpServletResponse response) throws IOException {
-        response.setContentType("application/octet-stream");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddHHmmss");
-        String currentDateTime = dateFormatter.format(new Date());
+        GUser currentUser = authService.getCurrentUser();
+        if (gUserService.checkPermissionOfBoard(currentUser)) {
+            response.setContentType("application/octet-stream");
+            DateFormat dateFormatter = new SimpleDateFormat("yyyyMMddHHmmss");
+            String currentDateTime = dateFormatter.format(new Date());
 
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename = boards_" + currentDateTime + ".xlsx";
-        response.setHeader(headerKey, headerValue);
-        excelExporterService.export(response);
-
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename = boards_" + currentDateTime + ".xlsx";
+            response.setHeader(headerKey, headerValue);
+            excelExporterService.export(response,currentUser.getUserId());
+        } else {
+            throw new SpringTrelloException("UNAUTHORIZED");
+        }
     }
 
     @GetMapping("/excel-info")
     public ResponseEntity<List<ExcelExportDTO>> getData(){
         GUser currentUser = authService.getCurrentUser();
-        if (currentUser.isEnabled()) {
-            List<ExcelExportDTO> board = excelExporterService.listAll();
+        if (gUserService.checkPermissionOfBoard(currentUser)) {
+            List<ExcelExportDTO> board = excelExporterService.listAll(currentUser.getUserId());
             return ResponseEntity.status(HttpStatus.OK).body(board);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);

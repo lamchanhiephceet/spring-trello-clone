@@ -33,6 +33,14 @@ public class GUserService {
         return false;
     }
 
+    public boolean checkPermissionOfBoard(GUser currentUser) {
+        List<GBoard> boards = gBoardService.findAllBoardByUserId(currentUser.getUserId());
+            if (boards != null && !boards.isEmpty()) {
+                return true;
+            }
+        return false;
+    }
+
     public GUser findUserByName(String username) {
         System.out.println("check repo");
         return gUserRepository.findByUsername(username).orElse(null);

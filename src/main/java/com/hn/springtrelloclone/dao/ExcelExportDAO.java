@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ExcelExportDAO {
 
-    List<ExcelExportDTO> getWorkDetail();
+    List<ExcelExportDTO> getWorkDetail(Long userId);
 }
