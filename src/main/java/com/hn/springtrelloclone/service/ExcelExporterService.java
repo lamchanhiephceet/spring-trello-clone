@@ -30,7 +30,7 @@ public class ExcelExporterService {
 
 
     private void writeHeaderLine(XSSFWorkbook workbook) {
-        sheet = workbook.createSheet("trello_clone");
+        sheet = workbook.createSheet("trello_clone_details");
 
         Row row = sheet.createRow(0);
         CellStyle style = workbook.createCellStyle();
@@ -43,7 +43,6 @@ public class ExcelExporterService {
         createCell(row, 1, "Status", style);
         createCell(row, 2, "Task Name", style);
         createCell(row, 3, "User Name", style);
-//        createCell(row, 4, "Last Name", style);
         createCell(row, 4, "E-mail", style);
         createCell(row, 5, "About Account", style);
 
@@ -77,7 +76,6 @@ public class ExcelExporterService {
             createCell(row, columnCount++, data.getBoardName(), style);
             createCell(row, columnCount++, data.getListName(), style);
             createCell(row, columnCount++, data.getCardName(), style);
-//            createCell(row, columnCount++, data.getFirstName(), style);
             createCell(row, columnCount++, data.getUsername(), style);
             createCell(row, columnCount++, data.getEmail(), style);
             createCell(row, columnCount++, data.getAccountInfo(), style);
