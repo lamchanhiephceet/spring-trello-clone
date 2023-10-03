@@ -32,4 +32,8 @@ public class GLabelService {
         GBoard gBoard = gBoardRepository.findById(id).orElse(null);
         return gLabelRepository.findAllByBoard(gBoard);
     }
+
+//    public List<GLabel> searchLabelByName(String labelName){
+//        return gLabelRepository.findLabelByName(labelName).orElseThrow(()-> new SpringTrelloException("Không tìm thấy label: " + labelName));
+//    }
 }

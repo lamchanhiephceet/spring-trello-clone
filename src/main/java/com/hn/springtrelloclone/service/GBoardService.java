@@ -1,6 +1,5 @@
 package com.hn.springtrelloclone.service;
 
-import com.hn.springtrelloclone.config.AppConfig;
 import com.hn.springtrelloclone.dto.MailRequest;
 import com.hn.springtrelloclone.model.*;
 import com.hn.springtrelloclone.repository.GBoardRepository;
@@ -8,6 +7,7 @@ import com.hn.springtrelloclone.repository.GCardRepository;
 import com.hn.springtrelloclone.repository.GUserRepository;
 import com.hn.springtrelloclone.repository.JoinGroupTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +37,8 @@ public class GBoardService {
     @Autowired
     private GCardRepository gCardRepository;
 
-    private AppConfig appConfig;
+    @Value("${app.url}")
+    private String appConfig;
 
     public static final String FROM_EMAIL = "lamchanhiephceet@gmail.com";
 
@@ -77,7 +78,7 @@ public class GBoardService {
                     currentUser.getUsername() + " added you to the board " + board.getBoardName(),
                     member.getEmail(),
                     "Please click on the below url to join the board:\n"
-                            + appConfig.getAppUrl() + "/api/users/join/" + token
+                            + appConfig + "/api/users/join/" + token
             ));
             MailRequest mailRequest = new MailRequest();
             mailRequest.setName(member.getUsername());

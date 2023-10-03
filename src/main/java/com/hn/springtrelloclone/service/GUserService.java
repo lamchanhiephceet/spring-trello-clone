@@ -81,4 +81,8 @@ public class GUserService {
     public GUser findById(Long userId) {
         return gUserRepository.findById(userId).orElse(null);
     }
+
+//    public List<GUser>findMemberByName(String name){
+//        return gUserRepository.findMemberByNamedParams(name).orElseThrow(() -> new SpringTrelloException("Khong tim thay user:" + name));
+//    }
 }

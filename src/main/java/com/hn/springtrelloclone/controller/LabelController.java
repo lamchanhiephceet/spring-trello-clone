@@ -40,4 +40,10 @@ public class LabelController {
         GLabel label = gLabelService.save(gLabel);
         return ResponseEntity.status(HttpStatus.CREATED).body(label);
     }
+
+//    @GetMapping("/search/{labelName}")
+//    public ResponseEntity<List<GLabel>> searchLabelByName(@PathVariable String labelName){
+//        List<GLabel> labels = gLabelService.searchLabelByName(labelName);
+//        return ResponseEntity.status(HttpStatus.OK).body(labels);
+//    }
 }

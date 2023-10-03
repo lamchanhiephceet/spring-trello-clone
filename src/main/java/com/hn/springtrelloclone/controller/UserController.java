@@ -110,4 +110,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body("Mark read");
     }
 
+//    @GetMapping("/search/{id}/{member}")
+//    public ResponseEntity<List<GUser>> searchMembers(@PathVariable Long id, @PathVariable String member) {
+//        GUser user = authService.getCurrentUser();
+//        if (gUserService.checkMemberOfBoard(user,id)) {
+//            List<GUser> users = gUserService.findMemberByName(member);
+//            return ResponseEntity.status(HttpStatus.OK).body(users);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+//        }
+//    }
 }
